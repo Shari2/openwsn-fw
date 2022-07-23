@@ -1,0 +1,10 @@
+Build and flash:
+  git clone git@github.com:Shari2/openwsn-fw.git
+  git checkout cmake_openmote_cc2538_rev_a1_on_openusb_rev_a2
+  python3 -m pip install pyserial intelhex
+  cmake -H. -Bbuild -GNinja -DBOARD=openmote-cc2538 -DCMAKE_TOOLCHAIN_FILE=cmake/toolchains/cc2538.cmake -DBOOTLOAD=/dev/ttyUSB0 -DPROJECT=oos_openwsn -DOPT-PING=ON
+  ninja -C build
+
+Start DAGROOT:
+  stty -F /dev/ttyUSB0 115200
+  echo -ne "\x7e\x52\x59\xbb\xbb\x00\x00\x00\x00\x00\x00\x01\xde\xad\xbe\xef\xca\xfe\xde\xad\xbe\xef\xca\xfe\xde\xad\xbe\xef\xa7\xd9\x7e" > /dev/ttyUSB0
